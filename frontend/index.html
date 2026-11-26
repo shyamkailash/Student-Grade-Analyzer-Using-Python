@@ -48,6 +48,38 @@
 
         </div>
 
+        <!-- Result Page -->
+        <div class="result-card hidden" id="resultPage">
+
+            <h1>Academic Result</h1>
+            <p class="description">Your performance summary</p>
+
+            <h3 id="resultStudentName"></h3>
+
+            <div id="subjectResults"></div>
+
+            <div class="summary">
+                <p>Total Marks: <strong id="totalMarks"></strong></p>
+                <p>Average: <strong id="averageMarks"></strong></p>
+                <p>Grade: <strong id="grade"></strong></p>
+                <p>Result: <strong id="passFail"></strong></p>
+            </div>
+            
+            <div class="download-actions">
+                <button onclick="downloadPDF()">
+                    Download PDF
+                </button>
+
+                <button onclick="downloadPNG()">
+                    Download PNG
+                </button>
+            </div>
+            
+            <button onclick="location.reload()">
+                Start Again
+            </button>
+
+        </div>
     </div>
 
     <script src="script.js"></script>

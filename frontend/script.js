@@ -89,7 +89,44 @@ async function submitMarks() {
 
         console.log("Backend Result:", data);
 
-        alert("Marks submitted successfully! Check the browser console.");
+        document.getElementById("marksPage").classList.add("hidden");
+        document.getElementById("resultPage").classList.remove("hidden");
+
+        document.getElementById("resultStudentName").textContent =
+            "Student: " + data.student_name;
+
+        const subjectResults = document.getElementById("subjectResults");
+
+        subjectResults.innerHTML = "";
+
+        for (const [subject, mark] of Object.entries(data.subjects)) {
+
+            const row = document.createElement("div");
+
+            row.className = "subject-result";
+
+            const subjectName = document.createElement("span");
+            subjectName.textContent = subject;
+
+            const subjectMark = document.createElement("strong");
+            subjectMark.textContent = mark + " / 100";
+
+            row.append(subjectName, subjectMark);
+
+            subjectResults.appendChild(row);
+        }
+
+        document.getElementById("totalMarks").textContent = data.total;
+
+        document.getElementById("averageMarks").textContent =
+            data.average + "%";
+
+        document.getElementById("grade").textContent = data.grade;
+
+        const passFail = document.getElementById("passFail");
+
+        passFail.textContent = data.result;
+        passFail.className = data.result === "PASS" ? "pass" : "fail";
 
     } catch (error) {
 
