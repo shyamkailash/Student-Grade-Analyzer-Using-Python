@@ -1,5 +1,18 @@
+def calculate_total(marks):
+    total = sum(mark for mark, _ in marks)
+    return total
 stud_name=input("Enter student name: ")
-no_subject=int(input("Enter number of subjects: "))
+while True:
+    try:
+        no_subject = int(input("Enter number of subjects: "))
+
+        if no_subject > 0:
+            break
+        else:
+            print("Number of subjects must be greater than zero.")
+
+    except ValueError:
+        print("Please enter a valid integer.")
 print(f"Enter marks for {no_subject} subjects:")
 marks = []
 for i in range(no_subject):
@@ -22,7 +35,7 @@ while True:
     print("6. Exit")
     choice = input("Enter your choice (1-6): ")
     if choice == '1':
-        total = sum(mark for mark, _ in marks)
+        total = calculate_total(marks)
         print(f"Total marks for {stud_name}: {total}")
     elif choice == '2':
         print(f"Average marks for {stud_name}: {average:.2f}")
