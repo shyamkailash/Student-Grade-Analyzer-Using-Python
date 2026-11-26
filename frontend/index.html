@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Welcome Page -->
+        <div class="welcome-card" id="welcomePage">
+            <div class="icon">🎓</div>
+            <h1>Student Grade Analyzer</h1>
+            <p>Calculate your academic performance and view your results instantly.</p>
+            <button onclick="startAnalyzer()">Get Started →</button>
+            <p class="footer-text">Simple • Fast • Accurate</p>
+        </div>
+
+        <!-- Marks Entry Page -->
+        <div class="form-card hidden" id="marksPage">
+
+            <h1>Enter Your Details</h1>
+            <p class="description">Fill in your subject marks below.</p>
+
+            <label>Student Name</label>
+            <input type="text" id="studentName" placeholder="Enter your name">
+
+            <div id="subjectsContainer">
+
+                <div class="subject-row">
+                    <input type="text" placeholder="Subject name">
+                    <input type="number" placeholder="Marks" min="0" max="100">
+                </div>
+
+            </div>
+
+            <button class="add-button" onclick="addSubject()">
+                + Add Subject
+            </button>
+
+            <button onclick="submitMarks()">
+                Continue →
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
