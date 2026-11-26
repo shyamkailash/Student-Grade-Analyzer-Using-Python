@@ -53,7 +53,13 @@ def display_report(student, marks):
 
 
 # Get student name
-stud_name = input("Enter student name: ")
+while True:
+    stud_name = input("Enter student name: ").strip()
+
+    if stud_name:
+        break
+    else:
+        print("Student name cannot be empty. Please try again.")
 
 # Validate number of subjects
 while True:
@@ -86,7 +92,18 @@ for i in range(no_subject):
         except ValueError:
             print("Please enter a valid number.")
 
-    subject_name = input(f"Enter name of subject {i+1}: ")
+    while True:
+        subject_name = input(f"Enter name of subject {i+1}: ").strip()
+
+        if not subject_name:
+            print("Subject name cannot be empty. Please try again.")
+
+        elif any(subject.lower() == subject_name.lower() for _, subject in marks):
+            print("Subject already exists. Please enter a different subject name.")
+
+        else:
+            break
+
     marks.append((mark, subject_name))
 
 
