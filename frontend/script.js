@@ -135,3 +135,82 @@ async function submitMarks() {
 
     }
 }
+
+async function downloadPNG() {
+
+    const resultCard = document.getElementById("resultPage");
+
+    try {
+        const canvas = await html2canvas(resultCard, {
+            scale: 2,
+            backgroundColor: "#ffffff",
+            ignoreElements: (element) =>
+                element.classList.contains("download-actions") ||
+                element.tagName === "BUTTON"
+        });
+
+        const link = document.createElement("a");
+
+        link.download = "Student-Result.png";
+        link.href = canvas.toDataURL("image/png");
+
+        link.click();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to download PNG.");
+    }
+}
+
+
+async function downloadPDF() {
+
+    const resultCard = document.getElementById("resultPage");
+
+    try {
+        const canvas = await html2canvas(resultCard, {
+            scale: 2,
+            backgroundColor: "#ffffff",
+            ignoreElements: (element) =>
+                element.classList.contains("download-actions") ||
+                element.tagName === "BUTTON"
+        });
+
+        const image = canvas.toDataURL("image/png");
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        const imageWidth = pageWidth - 20;
+        const imageHeight =
+            (canvas.height * imageWidth) / canvas.width;
+
+        const finalWidth = imageHeight > pageHeight - 20
+            ? imageWidth * ((pageHeight - 20) / imageHeight)
+            : imageWidth;
+
+        const finalHeight = imageHeight > pageHeight - 20
+            ? pageHeight - 20
+            : imageHeight;
+
+        pdf.addImage(
+            image,
+            "PNG",
+            (pageWidth - finalWidth) / 2,
+            10,
+            finalWidth,
+            finalHeight
+        );
+
+        pdf.save("Student-Result.pdf");
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to download PDF.");
+    }
+}
+
