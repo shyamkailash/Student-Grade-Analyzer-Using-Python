@@ -3,14 +3,10 @@ def calculate_total(marks):
     return total
 
 
-
-
 def calculate_average(marks):
     total = calculate_total(marks)
     average = total / len(marks)
     return average
-
-
 
 
 def calculate_grade(average):
@@ -30,8 +26,16 @@ def calculate_grade(average):
     else:
         return "F"
 
+
+def check_result(marks):
+    if all(mark >= 40 for mark, _ in marks):
+        return "PASS"
+    else:
+        return "FAIL"
+
     
 stud_name=input("Enter student name: ")
+
 while True:
     try:
         no_subject = int(input("Enter number of subjects: "))
@@ -43,8 +47,10 @@ while True:
 
     except ValueError:
         print("Please enter a valid integer.")
+
 print(f"Enter marks for {no_subject} subjects:")
 marks = []
+
 for i in range(no_subject):
     while True:
         mark = float(input(f"Enter marks for subject {i+1}: "))
@@ -54,7 +60,16 @@ for i in range(no_subject):
             print("Invalid marks! Enter marks between 0 and 100.")
     subject_name = input(f"Enter name of subject {i+1}: ")
     marks.append((mark, subject_name))
-average = calculate_average(marks)
+
+# Create student dictionary
+student = {
+    "name": stud_name,
+    "subjects": {
+        subject: mark for mark, subject in marks
+    }
+}
+
+
 while True:
     print("\n===== STUDENT GRADE ANALYZER =====")
     print("1. Calculate Total")
@@ -68,25 +83,29 @@ while True:
 
     if choice == '1':
         total = calculate_total(marks)
-        print(f"Total marks for {stud_name}: {total}")
+
+        print(f"Total marks for {student['name']}: {total}")
 
     elif choice == '2':
-        print(f"Average marks for {stud_name}: {average:.2f}")
+        average = calculate_average(marks)
+
+        print(f"Average marks for {student['name']}: {average:.2f}")
 
     elif choice == '3':
-        print(f"Marks for {stud_name}:")
-        for mark, subject in marks:
+        print(f"Marks for {student['name']}:")
+
+        for subject, mark in student["subjects"].items():
             print(f"{subject}: {mark}")
 
     elif choice == '4':
+        average = calculate_average(marks)
         grade = calculate_grade(average)
-        print(f"Grade for {stud_name}: {grade}")
+
+        print(f"Grade for {student['name']}: {grade}")
 
     elif choice == '5':
-        if all(mark >= 40 for mark, _ in marks):
-            print(f"Result for {stud_name}: PASS")
-        else:
-            print(f"Result for {stud_name}: FAIL")
+        result = check_result(marks)
+        print(f"Result for {student['name']}: {result}")
 
     elif choice == '6':
         print("Exiting the program. Goodbye!")
