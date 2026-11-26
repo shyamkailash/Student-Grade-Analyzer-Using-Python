@@ -13,6 +13,24 @@ def calculate_average(marks):
 
 
 
+def calculate_grade(average):
+
+    if average >= 90:
+        return "A"
+
+    elif average >= 80:
+        return "B"
+
+    elif average >= 70:
+        return "C"
+
+    elif average >= 60:
+        return "D"
+
+    else:
+        return "F"
+
+    
 stud_name=input("Enter student name: ")
 while True:
     try:
@@ -61,20 +79,7 @@ while True:
             print(f"{subject}: {mark}")
 
     elif choice == '4':
-        if average >= 90:
-            grade = "A"
-
-        elif average >= 80:
-            grade = "B"
-
-        elif average >= 70:
-            grade = "C"
-
-        elif average >= 60:
-            grade = "D"
-
-        else:
-            grade = "F"
+        grade = calculate_grade(average)
         print(f"Grade for {stud_name}: {grade}")
 
     elif choice == '5':
