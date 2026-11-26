@@ -1,3 +1,4 @@
+
 def calculate_total(marks):
     total = sum(mark for mark, _ in marks)
     return total
@@ -10,19 +11,14 @@ def calculate_average(marks):
 
 
 def calculate_grade(average):
-
     if average >= 90:
         return "A"
-
     elif average >= 80:
         return "B"
-
     elif average >= 70:
         return "C"
-
     elif average >= 60:
         return "D"
-
     else:
         return "F"
 
@@ -32,6 +28,7 @@ def check_result(marks):
         return "PASS"
     else:
         return "FAIL"
+
 
 def display_report(student, marks):
     total = calculate_total(marks)
@@ -54,8 +51,11 @@ def display_report(student, marks):
     print(f"Result       : {result}")
     print("====================================")
 
-stud_name=input("Enter student name: ")
 
+# Get student name
+stud_name = input("Enter student name: ")
+
+# Validate number of subjects
 while True:
     try:
         no_subject = int(input("Enter number of subjects: "))
@@ -68,18 +68,27 @@ while True:
     except ValueError:
         print("Please enter a valid integer.")
 
+
+# Get subject marks
 print(f"Enter marks for {no_subject} subjects:")
 marks = []
 
 for i in range(no_subject):
     while True:
-        mark = float(input(f"Enter marks for subject {i+1}: "))
-        if 0 <= mark <= 100:
-            break
-        else:
-            print("Invalid marks! Enter marks between 0 and 100.")
+        try:
+            mark = float(input(f"Enter marks for subject {i+1}: "))
+
+            if 0 <= mark <= 100:
+                break
+            else:
+                print("Invalid marks! Enter marks between 0 and 100.")
+
+        except ValueError:
+            print("Please enter a valid number.")
+
     subject_name = input(f"Enter name of subject {i+1}: ")
     marks.append((mark, subject_name))
+
 
 # Create student dictionary
 student = {
@@ -90,6 +99,7 @@ student = {
 }
 
 
+# Main menu
 while True:
     print("\n===== STUDENT GRADE ANALYZER =====")
     print("1. Calculate Total")
@@ -104,12 +114,10 @@ while True:
 
     if choice == '1':
         total = calculate_total(marks)
-
         print(f"Total marks for {student['name']}: {total}")
 
     elif choice == '2':
         average = calculate_average(marks)
-
         print(f"Average marks for {student['name']}: {average:.2f}")
 
     elif choice == '3':
@@ -121,7 +129,6 @@ while True:
     elif choice == '4':
         average = calculate_average(marks)
         grade = calculate_grade(average)
-
         print(f"Grade for {student['name']}: {grade}")
 
     elif choice == '5':
